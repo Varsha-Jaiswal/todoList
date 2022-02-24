@@ -1,0 +1,74 @@
+<div class="container text-center todo-container">
+  <h1 class="heading"><b>ToDo List</b></h1>
+  <input
+    class="text-center form-control addTodo"
+    [(ngModel)]="newTodo"
+    type="text"
+    placeholder="Enter New ToDo Item"
+    (keyup.enter)="addNewTodo()"
+  />
+
+  <div class="todos-container">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="label">Todos</div>
+        <div
+          class="todoList"
+          cdkDropList
+          #todo="cdkDropList"
+          [cdkDropListData]="todoList"
+          [cdkDropListConnectedTo]="[ongoing, done]"
+          (cdkDropListDropped)="drop($event)"
+        >
+          <div
+            class="todoItem text-center"
+            *ngFor="let item of todoList"
+            cdkDrag
+          >
+            {{ item }}
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="label mt-4">Ongoing</div>
+
+        <div
+          class="todoList"
+          cdkDropList
+          #ongoing="cdkDropList"
+          [cdkDropListData]="onGoingList"
+          [cdkDropListConnectedTo]="[todo, done]"
+          (cdkDropListDropped)="drop($event)"
+        >
+          <div
+            class="todoItem text-center"
+            *ngFor="let item of onGoingList"
+            cdkDrag
+          >
+            {{ item }}
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="label mt-4">Done</div>
+
+        <div
+          class="todoList"
+          cdkDropList
+          #done="cdkDropList"
+          [cdkDropListData]="doneList"
+          [cdkDropListConnectedTo]="[todo, ongoing]"
+          (cdkDropListDropped)="drop($event)"
+        >
+          <div
+            class="todoItem text-center"
+            *ngFor="let item of doneList"
+            cdkDrag
+          >
+            {{ item }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
